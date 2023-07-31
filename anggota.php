@@ -266,6 +266,7 @@ $data = mysqli_fetch_array($query);
                   <div class="info-box-content form-group">
                     <label for="number">Nominal Topup</label>
                     <input type="number" id="number" name="number" class="form-control text-lg" required>
+                    <input type="hidden" name="id_user" value="<?= $user['id_user']; ?>">
                   </div>
                  </div>
                 <!-- /.info-box -->
