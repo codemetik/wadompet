@@ -81,33 +81,28 @@
 <?php 
 include "koneksi.php";
 
-if (!isset($_COOKIE['username'])) {
-    
-    if (isset($_POST['login'])) {
-    $user = $_POST['user'];
-    $pass = $_POST['pass'];
+if (isset($_POST['login'])) {
+$user = $_POST['user'];
+$pass = $_POST['pass'];
 
-    $querylvel = mysqli_query($koneksi, "select * from tb_user where user = '$user' and pass = '$pass'");
+$querylvel = mysqli_query($koneksi, "select * from tb_user where user = '$user' and pass = '$pass'");
 
-      if (mysqli_num_rows($querylvel) > 0 ) {
-        $data = mysqli_fetch_array($querylvel);
+  if (mysqli_num_rows($querylvel) > 0 ) {
+    $data = mysqli_fetch_array($querylvel);
 
-        if ($data['id_level'] == '1') {
-          setcookie("username",$data['user'],time()+(86400*30),'/');
-          echo "<script>
-          alert('ANDA LOGIN SEBAGAI ADMIN');
-          document.location.href = 'admin.php';
-          </script>";
-        }else if($data['id_level'] == '2'){
-          setcookie("username",$data['user'],time()+(86400*30),'/');
-          echo "<script>
-          alert('ANDA LOGIN SEBAGAI ANGGOTA');
-          document.location.href = 'anggota.php';
-          </script>";
-        }
-      }
-    }  
-
-}
-
+    if ($data['id_level'] == '1') {
+      setcookie("username",$data['user'],time()+(86400*30),'/',false, true);
+      echo "<script>
+      alert('ANDA LOGIN SEBAGAI ADMIN');
+      document.location.href = 'admin.php';
+      </script>";
+    }else if($data['id_level'] == '2'){
+      setcookie("username",$data['user'],time()+(86400*30),'/',false,true);
+      echo "<script>
+      alert('ANDA LOGIN SEBAGAI ANGGOTA');
+      document.location.href = 'anggota.php';
+      </script>";
+    }
+  }
+}  
 ?>

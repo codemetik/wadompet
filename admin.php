@@ -1,6 +1,6 @@
 <?php 
 include "koneksi.php"; 
-if (!isset($_COOKIE['username'])) {
+if (isset($_COOKIE['username']) == 0) {
   echo "<script>document.location.href = 'login.php';</script>";
 }
 
