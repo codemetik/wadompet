@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="stylesheet" type="text/css" href="dist/css/style.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -19,7 +21,8 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" onload="myFunction()" style="margin: 0;">
+  <div id="loader"></div>
 <div class="login-box">
   <div class="login-logo">
     <a href=""><b>Wa</b>Dompet</a>
@@ -75,6 +78,17 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 
+<!-- Loader -->
+<script type="text/javascript">
+  var myVar;
+  function myFunction(){
+    myVar = setTimeout(showPage, 1000);
+  }
+
+  function showPage(){
+    document.getElementById('loader').style.display = "none";
+  }
+</script>
 </body>
 </html>
 
@@ -89,20 +103,26 @@ $querylvel = mysqli_query($koneksi, "select * from tb_user where user = '$user' 
 
   if (mysqli_num_rows($querylvel) > 0 ) {
     $data = mysqli_fetch_array($querylvel);
+    $insert_os_agent = mysqli_query($koneksi, "insert into user_agent values('','".$data['id_user']."','".$_SERVER['HTTP_USER_AGENT']."')");
 
-    if ($data['id_level'] == '1') {
-      setcookie("username",$data['user'],time()+(86400*30),'/',false, true);
-      echo "<script>
-      alert('ANDA LOGIN SEBAGAI ADMIN');
-      document.location.href = 'admin.php';
-      </script>";
-    }else if($data['id_level'] == '2'){
-      setcookie("username",$data['user'],time()+(86400*30),'/',false,true);
-      echo "<script>
-      alert('ANDA LOGIN SEBAGAI ANGGOTA');
-      document.location.href = 'anggota.php';
-      </script>";
+    if ($data['id_level'] == '1' ) {
+      if ($insert_os_agent) {
+        $_SESSION['agent'] = $_SERVER['HTTP_USER_AGENT'];
+        echo "<script>
+        alert('ANDA LOGIN SEBAGAI ADMIN');
+        document.location.href = 'admin.php';
+        </script>";
+      }
+    }else if($data['id_level'] == '2' && $insert_os_agent){
+      if ($insert_os_agent) {
+        $_SESSION['agent'] = $_SERVER['HTTP_USER_AGENT'];
+        echo "<script>
+        alert('ANDA LOGIN SEBAGAI ANGGOTA');
+        document.location.href = 'anggota.php';
+        </script>";
+      }
     }
   }
-}  
+  
+} //tutup  
 ?>

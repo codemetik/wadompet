@@ -1,11 +1,14 @@
 <?php 
+session_start();
 include "koneksi.php";
-if (isset($_COOKIE['username']) == 0) {
+if (!isset($_SESSION['agent'])) {
   echo "<script>document.location.href = 'login.php';</script>";
 }
 
-$query = mysqli_query($koneksi, "select * from tb_user y inner join dompet_user x on x.id_user = y.id_user where user = '".$_COOKIE['username']."'");
+$query = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y on y.id_user = x.id_user 
+inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SESSION['agent']."' group by x.id_user asc");
 $user = mysqli_fetch_array($query);
+
 function rupiah($angka){
   $hasil_rupiah = "Rp. " . number_format($angka, 2 ,',','.');
   return $hasil_rupiah;
@@ -241,8 +244,9 @@ function rupiah($angka){
 </div>
 <!-- ./wrapper -->
 
-<?php include "anggota/proses/proses_ijin_tiket.php"; 
-$data = mysqli_fetch_array($query);
+<?php 
+include "anggota/proses/proses_ijin_tiket.php";
+$data_tiket = mysqli_fetch_array($query_tiket);
 ?>
 <div class="modal fade" id="modal-secondary">
   <div class="modal-dialog">
@@ -253,9 +257,9 @@ $data = mysqli_fetch_array($query);
           <span aria-hidden="true">&times;</span></button>
       </div>
       <?php 
-        if (mysqli_num_rows($query) > 0) {
-          if ($data['status'] == 'IJIN') {
-           echo "<div class='modal-body'><h3>STATUS Anda sedang dalam proses IJIN. Silahkan lakukan pembayaran dengan ADMIN sebesar : ".rupiah($data['nominal_topup'])."</h3></div>";
+        if (mysqli_num_rows($query_tiket) > 0) {
+          if ($data_tiket['status'] == 'IJIN') {
+           echo "<div class='modal-body'><h3>STATUS Anda sedang dalam proses IJIN. Silahkan lakukan pembayaran dengan ADMIN sebesar : ".rupiah($data_tiket['nominal_topup'])."</h3></div>";
           }
         }else{ ?>
         <form action="anggota/proses/proses_tiket.php" method="post" id="formid">

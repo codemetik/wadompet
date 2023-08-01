@@ -1,5 +1,5 @@
 <?php 
-$query = mysqli_query($koneksi, "select * from tb_user where user = '".$_COOKIE['username']."'");
+$query = mysqli_query($koneksi, "select * from tb_user where user = '".$user['user']."'");
 $data = mysqli_fetch_array($query);
 
 ?>
@@ -9,7 +9,7 @@ $data = mysqli_fetch_array($query);
   <div class="card card-widget widget-user">
     <!-- Add the bg color to the header using any of the bg-* classes -->
     <div class="widget-user-header bg-nav">
-      <h3 class="widget-user-username"> <a href="" class="text-orange" data-toggle="modal" data-target="#modal-sm"><?= $data['user']; ?></a></h3>
+      <h3 class="widget-user-username"> <a href="" class="text-orange" data-toggle="modal" data-target="#modal-sm"><?= $data['nama_lengkap']; ?></a></h3>
       <h5 class="widget-user-desc"><?= $data['position']; ?></h5>
     </div>
     <div class="widget-user-image">

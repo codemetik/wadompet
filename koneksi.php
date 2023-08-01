@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$user = "smkg6671";
-$pass = "smksapra2123";
-$db = "smkg6671_wadompet";
+$user = "root";
+$pass = "";
+$db = "wadompet";
 
 $koneksi = mysqli_connect($host, $user, $pass, $db) 
 or die('Could not connect : ' . mysqli_connect_error());

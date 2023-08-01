@@ -17,7 +17,7 @@
         <tbody>
           <?php 
 
-          $query = mysqli_query($koneksi, "select * from tb_user x inner join dompet_user y on y.id_user = x.id_user inner join riwayat_topup z on z.id_dompet = y.id_dompet where user = '".$_COOKIE['username']."' group by id_riwayat desc");
+          $query = mysqli_query($koneksi, "select * from tb_user x inner join dompet_user y on y.id_user = x.id_user inner join riwayat_topup z on z.id_dompet = y.id_dompet where user = '".$user['user']."' group by id_riwayat desc");
           while ($data = mysqli_fetch_array($query)) {
           ?>
           <tr>

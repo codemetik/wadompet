@@ -4,8 +4,8 @@
   <div class="card card-widget widget-user">
     <!-- Add the bg color to the header using any of the bg-* classes -->
     <div class="widget-user-header bg-nav">
-      <h3 class="widget-user-username"> <a href="" class="text-orange" data-toggle="modal" data-target="#modal-sm">Alexander Pierce</a></h3>
-      <h5 class="widget-user-desc">KETUA KELAS</h5>
+      <h3 class="widget-user-username"> <a href="" class="text-orange" data-toggle="modal" data-target="#modal-sm"><?= $show['nama_lengkap']; ?></a></h3>
+      <h5 class="widget-user-desc"><?= $show['position']; ?></h5>
     </div>
     <div class="widget-user-image">
       <img class="img-circle elevation-2" src="dist/img/user1-128x128.jpg" alt="User Avatar" data-toggle="modal" data-target="#modal-profile">
@@ -15,7 +15,7 @@
         <div class="col-sm-4 border-right">
           <div class="description-block">
             <h5 class="description-header">Username</h5>
-            <span class="description-text"><input class="text-center form-control" type="text" value="prayogo" readonly></span>
+            <span class="description-text"><input class="text-center form-control" type="text" value="<?= $show['user']; ?>" readonly></span>
           </div>
           <!-- /.description-block -->
         </div>
@@ -23,7 +23,7 @@
         <div class="col-sm-4 border-right">
           <div class="description-block">
             <h5 class="description-header">Password</h5>
-            <span class="description-text"><input class="text-center form-control" type="password" value="123prayogo" readonly></span>
+            <span class="description-text"><input class="text-center form-control" type="password" value="<?= $show['pass']; ?>" readonly></span>
           </div>
           <!-- /.description-block -->
         </div>
@@ -31,7 +31,7 @@
         <div class="col-sm-4">
           <div class="description-block">
             <h5 class="description-header">Email</h5>
-            <span class="description-text">alex@gmail.com</span>
+            <span class="description-text"><?= $show['email']; ?></span>
           </div>
           <!-- /.description-block -->
         </div>
@@ -39,7 +39,7 @@
         <div class="col-sm-4">
           <div class="description-block">
             <h5 class="description-header">Tempat & Tgl Lahir</h5>
-            <span class="description-text">Pemalang, 2008-12-30</span>
+            <span class="description-text"><?= $show['temp_lahir']. ", ". $show['tgl_lahir']; ?></span>
           </div>
           <!-- /.description-block -->
         </div>
@@ -47,7 +47,7 @@
         <div class="col-sm-4">
           <div class="description-block">
             <h5 class="description-header">Alamat Lengkap</h5>
-            <span class="description-text"><textarea class="form-control" readonly>Ds. Tegalmlati, Kec. Petarukan, Kab. Pemalang</textarea></span>
+            <span class="description-text"><textarea class="form-control" readonly><?= $show['alamat_sekarang']; ?></textarea></span>
           </div>
           <!-- /.description-block -->
         </div>

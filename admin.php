@@ -1,8 +1,13 @@
 <?php 
+session_start();
 include "koneksi.php"; 
-if (isset($_COOKIE['username']) == 0) {
+
+if (!isset($_SESSION['agent'])) {
   echo "<script>document.location.href = 'login.php';</script>";
 }
+
+$show_agent = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y on y.id_user = x.id_user where name_user_agent = '".$_SESSION['agent']."' group by x.id_user asc");
+$show = mysqli_fetch_array($show_agent);
 
 function rupiah($angka){
   $hasil_rupiah = "Rp. " . number_format($angka, 2 ,',','.');
@@ -73,7 +78,7 @@ function rupiah($angka){
         </a>
       </li>
       <li class="nav-item d-lg-inline-block">
-        <h4><a href="?page=profile" class="nav-link text-bold text-orange"><?= $_COOKIE['username']; ?></a></h4>
+        <h4><a href="?page=profile" class="nav-link text-bold text-orange"><?= $show['user']; ?></a></h4>
       </li>
     </ul>
 
