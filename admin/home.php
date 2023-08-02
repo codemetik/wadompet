@@ -1,6 +1,9 @@
 <?php 
 $sqlkas = mysqli_query($koneksi, "select * from uang_kas");
 $jmlkas = mysqli_fetch_array($sqlkas);
+
+$dompet = mysqli_query($koneksi, "select sum(isi_dompet) as dompet from dompet_user");
+$dtdompet = mysqli_fetch_array($dompet);
 ?>
 <div class="row">
   <div class="col-md-3 col-sm-6 col-12"><a href="?page=tabungan" class="text-dark">
@@ -9,7 +12,7 @@ $jmlkas = mysqli_fetch_array($sqlkas);
 
       <div class="info-box-content">
       <span class="info-box-text">Wadompet</span>
-        <span class="info-box-number">Rp. 32.700.000</span>
+        <span class="info-box-number"><?= rupiah($dtdompet['dompet']); ?></span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>

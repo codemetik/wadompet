@@ -1,16 +1,16 @@
 <form action="admin/proses/proses_setoran_kas.php" method="post">
-<div class="row elevation-1 p-3 m-3">
+<div class="row elevation-1 p-2 m-1 bg-nav">
   <div class="col-sm-12">
-    <div class="info-box callout callout-grey bg-nav">
+    <div class="info-box callout callout-grey bg-dark">
       <div class="info-box-content form-group">
-      	<label for="number">Nominal Topup</label>
+      	<label for="number">Nominal Topup KAS</label>
       	<input type="number" id="number" name="number" class="form-control text-lg" placeholder="Rp." required>
       </div>
      </div>
     <!-- /.info-box -->
   </div>
   <div class="col-sm-12">
-    <div class="info-box callout callout-grey bg-nav">
+    <div class="info-box callout callout-grey bg-dark">
       <div class="info-box-content form-group">
       	<label>Pilih Rekening Siswa</label>
       	  <select class="select2bs4" name="id_user[]" multiple="multiple" data-placeholder="Select a No Bank"
