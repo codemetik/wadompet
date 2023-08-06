@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Agu 2023 pada 09.01
+-- Waktu pembuatan: 06 Agu 2023 pada 17.41
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -24,6 +24,40 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `catatan`
+--
+
+CREATE TABLE `catatan` (
+  `id_catatan` int(10) NOT NULL,
+  `isi` text NOT NULL,
+  `tgl_waktu` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `catatan`
+--
+
+INSERT INTO `catatan` (`id_catatan`, `isi`, `tgl_waktu`) VALUES
+(5, 'catatan', '2023-08-04 22:18:38'),
+(6, 'TGL awal ', '2023-08-04 22:29:30'),
+(7, 'akan pergi tgl 12', '2023-08-04 22:30:20');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `chatgroup`
+--
+
+CREATE TABLE `chatgroup` (
+  `id_chat` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `tgl_chat` datetime NOT NULL,
+  `isi_chat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `dompet_user`
 --
 
@@ -38,8 +72,8 @@ CREATE TABLE `dompet_user` (
 --
 
 INSERT INTO `dompet_user` (`id_dompet`, `id_user`, `isi_dompet`) VALUES
-(1, 1, 19000),
-(2, 2, 20000),
+(1, 1, 110000),
+(2, 2, 0),
 (3, 3, 0),
 (4, 4, 0),
 (5, 5, 0),
@@ -103,7 +137,8 @@ CREATE TABLE `kas_keluar` (
 INSERT INTO `kas_keluar` (`id_kas_keluar`, `id_user`, `nominal_kas_keluar`, `tgl_tarik`, `deskripsi`) VALUES
 (4, 43, 50000, '2023-08-02 13:46:14', 'Fotocopy'),
 (6, 43, 50000, '2023-08-02 13:50:50', 'Fotocopy'),
-(7, 43, 2000, '2023-08-02 13:59:20', 'Untuk makan bersama');
+(7, 43, 2000, '2023-08-02 13:59:20', 'Untuk makan bersama'),
+(8, 43, 50000, '2023-08-04 20:17:22', 'Untuk beli buku');
 
 --
 -- Trigger `kas_keluar`
@@ -198,6 +233,31 @@ INSERT INTO `leveluser` (`id_level`, `name_level`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `riwayat_tariktunai`
+--
+
+CREATE TABLE `riwayat_tariktunai` (
+  `id_riwayattarik` int(10) NOT NULL,
+  `id_dompet` int(10) NOT NULL,
+  `tgl_trxtarik` datetime NOT NULL,
+  `saldo_keluar` int(10) NOT NULL,
+  `saldo_awal` int(10) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Trigger `riwayat_tariktunai`
+--
+DELIMITER $$
+CREATE TRIGGER `riwayat_saldo_keluar` AFTER INSERT ON `riwayat_tariktunai` FOR EACH ROW BEGIN
+	UPDATE dompet_user SET isi_dompet = isi_dompet - new.saldo_keluar WHERE id_dompet = new.id_dompet AND new.status = 'DISETUJUI';
+    END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `riwayat_topup`
 --
 
@@ -206,7 +266,7 @@ CREATE TABLE `riwayat_topup` (
   `id_dompet` int(10) NOT NULL,
   `tgl_trx` datetime NOT NULL,
   `saldo_masuk` int(10) NOT NULL,
-  `saldo_keluar` int(10) NOT NULL,
+  `saldo_awal` int(10) NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -214,27 +274,13 @@ CREATE TABLE `riwayat_topup` (
 -- Dumping data untuk tabel `riwayat_topup`
 --
 
-INSERT INTO `riwayat_topup` (`id_riwayat`, `id_dompet`, `tgl_trx`, `saldo_masuk`, `saldo_keluar`, `status`) VALUES
-(25, 1, '2023-07-31 02:35:00', 5000, 0, 'DISETUJUI'),
-(26, 1, '2023-07-31 09:43:16', 5000, 0, 'DISETUJUI'),
-(27, 1, '2023-07-31 09:59:42', 4000, 0, 'DISETUJUI'),
-(28, 1, '2023-07-31 10:42:00', 5000, 0, 'DISETUJUI'),
-(29, 2, '2023-08-02 01:47:27', 5000, 0, 'DISETUJUI'),
-(30, 2, '2023-08-02 01:53:48', 5000, 0, 'DISETUJUI'),
-(31, 2, '2023-08-02 02:09:13', 5000, 0, 'DISETUJUI'),
-(32, 2, '2023-08-02 02:12:32', 5000, 0, 'DITOLAK'),
-(33, 2, '2023-08-02 02:17:44', 5000, 0, 'DITOLAK'),
-(34, 2, '2023-08-02 11:16:10', 5000, 0, 'DISETUJUI');
+INSERT INTO `riwayat_topup` (`id_riwayat`, `id_dompet`, `tgl_trx`, `saldo_masuk`, `saldo_awal`, `status`) VALUES
+(43, 1, '2023-08-05 02:51:17', 10000, 0, 'DISETUJUI'),
+(44, 1, '2023-08-05 02:53:00', 100000, 10000, 'DISETUJUI');
 
 --
 -- Trigger `riwayat_topup`
 --
-DELIMITER $$
-CREATE TRIGGER `riwayat_saldo_keluar` AFTER INSERT ON `riwayat_topup` FOR EACH ROW BEGIN
-	UPDATE dompet_user SET isi_dompet = isi_dompet - new.saldo_keluar WHERE id_dompet = new.id_dompet;
-    END
-$$
-DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `riwayat_saldo_masuk` AFTER INSERT ON `riwayat_topup` FOR EACH ROW BEGIN
 	UPDATE dompet_user SET isi_dompet = isi_dompet + new.saldo_masuk WHERE id_dompet = new.id_dompet and new.status = 'DISETUJUI';
@@ -268,7 +314,7 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `nama_lengkap`, `position`, `user`, `pass`, `email`, `no_whatsapp`, `temp_lahir`, `tgl_lahir`, `alamat_sekarang`, `img_profile`, `id_level`) VALUES
-(1, 'ABDILLAH YAHYA', 'SISWA', '400488', '400488', 'email1@gmail.com', '2147483647', 'Pemalang', '2008-01-01', 'Ds. Iser, Kec. Petarukan, Kab. Pemalang', '', 2),
+(1, 'ABDILLAH YAHYA', 'SISWA', '400488', '400488', '400488@gmail.com', '2147483647', 'Pemalang', '2008-01-01', 'Ds. Iser, Kec. Petarukan, Kab. Pemalang                                                                                                            ', '', 2),
 (2, 'ADITYA WIJAYA', 'SISWA', '400489', '400489', 'email1@gmail.com', '0', 'Pemalang', '2008-01-02', 'Ds. Iser, Kec. Petarukan, Kab. Pemalang', '', 2),
 (3, 'AIRIN NUR HAFIA', 'SISWA', '400490', '400490', 'email1@gmail.com', '0', 'Pemalang', '2008-01-03', 'Ds. Iser, Kec. Petarukan, Kab. Pemalang', '', 2),
 (4, 'ANGGUN KARISMA', 'SISWA', '400491', '400491', 'email1@gmail.com', '0', 'Pemalang', '2008-01-04', 'Ds. Iser, Kec. Petarukan, Kab. Pemalang', '', 2),
@@ -315,6 +361,21 @@ INSERT INTO `tb_user` (`id_user`, `nama_lengkap`, `position`, `user`, `pass`, `e
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tiket_tariktunai`
+--
+
+CREATE TABLE `tiket_tariktunai` (
+  `id_tikettarik` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `nominal_tarik` int(10) NOT NULL,
+  `tgl_tariktunai` datetime NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `deskripsi` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tiket_topup`
 --
 
@@ -343,7 +404,7 @@ CREATE TABLE `uang_kas` (
 --
 
 INSERT INTO `uang_kas` (`id_kas`, `total_kas`) VALUES
-(1, 200000);
+(1, 150000);
 
 -- --------------------------------------------------------
 
@@ -354,6 +415,7 @@ INSERT INTO `uang_kas` (`id_kas`, `total_kas`) VALUES
 CREATE TABLE `user_agent` (
   `id_agent` int(10) NOT NULL,
   `id_user` int(10) NOT NULL,
+  `tgl_login` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `name_user_agent` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -361,13 +423,35 @@ CREATE TABLE `user_agent` (
 -- Dumping data untuk tabel `user_agent`
 --
 
-INSERT INTO `user_agent` (`id_agent`, `id_user`, `name_user_agent`) VALUES
-(17, 43, 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36'),
-(18, 43, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
+INSERT INTO `user_agent` (`id_agent`, `id_user`, `tgl_login`, `name_user_agent`) VALUES
+(73, 43, '2023-08-06 15:36:42', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
+
+--
+-- Trigger `user_agent`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_chatgroup` AFTER DELETE ON `user_agent` FOR EACH ROW BEGIN
+	delete from chatgroup where id_user = old.id_user;
+    END
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `catatan`
+--
+ALTER TABLE `catatan`
+  ADD PRIMARY KEY (`id_catatan`);
+
+--
+-- Indeks untuk tabel `chatgroup`
+--
+ALTER TABLE `chatgroup`
+  ADD PRIMARY KEY (`id_chat`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `dompet_user`
@@ -396,6 +480,12 @@ ALTER TABLE `leveluser`
   ADD PRIMARY KEY (`id_level`);
 
 --
+-- Indeks untuk tabel `riwayat_tariktunai`
+--
+ALTER TABLE `riwayat_tariktunai`
+  ADD PRIMARY KEY (`id_riwayattarik`);
+
+--
 -- Indeks untuk tabel `riwayat_topup`
 --
 ALTER TABLE `riwayat_topup`
@@ -408,6 +498,12 @@ ALTER TABLE `riwayat_topup`
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_level` (`id_level`);
+
+--
+-- Indeks untuk tabel `tiket_tariktunai`
+--
+ALTER TABLE `tiket_tariktunai`
+  ADD PRIMARY KEY (`id_tikettarik`);
 
 --
 -- Indeks untuk tabel `tiket_topup`
@@ -426,11 +522,24 @@ ALTER TABLE `uang_kas`
 -- Indeks untuk tabel `user_agent`
 --
 ALTER TABLE `user_agent`
-  ADD PRIMARY KEY (`id_agent`);
+  ADD PRIMARY KEY (`id_agent`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `catatan`
+--
+ALTER TABLE `catatan`
+  MODIFY `id_catatan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `chatgroup`
+--
+ALTER TABLE `chatgroup`
+  MODIFY `id_chat` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `dompet_user`
@@ -442,7 +551,7 @@ ALTER TABLE `dompet_user`
 -- AUTO_INCREMENT untuk tabel `kas_keluar`
 --
 ALTER TABLE `kas_keluar`
-  MODIFY `id_kas_keluar` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kas_keluar` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `kas_user`
@@ -457,10 +566,16 @@ ALTER TABLE `leveluser`
   MODIFY `id_level` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `riwayat_tariktunai`
+--
+ALTER TABLE `riwayat_tariktunai`
+  MODIFY `id_riwayattarik` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT untuk tabel `riwayat_topup`
 --
 ALTER TABLE `riwayat_topup`
-  MODIFY `id_riwayat` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_riwayat` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -469,10 +584,16 @@ ALTER TABLE `tb_user`
   MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
+-- AUTO_INCREMENT untuk tabel `tiket_tariktunai`
+--
+ALTER TABLE `tiket_tariktunai`
+  MODIFY `id_tikettarik` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `tiket_topup`
 --
 ALTER TABLE `tiket_topup`
-  MODIFY `id_tiket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id_tiket` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT untuk tabel `uang_kas`
@@ -484,7 +605,7 @@ ALTER TABLE `uang_kas`
 -- AUTO_INCREMENT untuk tabel `user_agent`
 --
 ALTER TABLE `user_agent`
-  MODIFY `id_agent` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_agent` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
