@@ -20,16 +20,21 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style type="text/css">
+    .bg-radian{
+    background-image: linear-gradient(white, #6495ED);
+  }
+  </style>
 </head>
-<body class="hold-transition login-page" onload="myFunction()" style="margin: 0;">
+<body class="hold-transition login-page bg-secondary" onload="myFunction()" style="margin: 0;">
   <div id="loader"></div>
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Wa</b>Dompet</a>
+    <a href="" class="text-white"><b>Wa</b>Dompet</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-body login-card-body bg-primary">
+    <div class="card-body login-card-body bg-radian">
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form action="" method="post">
@@ -51,16 +56,16 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
+            <!-- <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Remember Me
               </label>
-            </div>
+            </div> -->
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" name="login" class="btn bg-orange btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -103,7 +108,8 @@ $querylvel = mysqli_query($koneksi, "select * from tb_user where user = '$user' 
 
   if (mysqli_num_rows($querylvel) > 0 ) {
     $data = mysqli_fetch_array($querylvel);
-    $insert_os_agent = mysqli_query($koneksi, "insert into user_agent values('','".$data['id_user']."','".$_SERVER['HTTP_USER_AGENT']."')");
+    $date = date('Y-m-d H:i:s');
+    $insert_os_agent = mysqli_query($koneksi, "insert into user_agent values('','".$data['id_user']."','$date','".$_SERVER['HTTP_USER_AGENT']."')");
 
     if ($data['id_level'] == '1' ) {
       if ($insert_os_agent) {

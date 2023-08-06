@@ -1,7 +1,7 @@
         <!-- =========================================================== -->
 
         <div class="row">
-          <div class="col-md-3 col-sm-6 col-12"><a href="?page=chat_group" class="text-dark">
+          <div class="col-md-3 col-sm-6 col-12"><a href="use_chatgroup.php" class="text-dark">
             <div class="info-box callout callout-grey">
               <span class="info-box-icon text-orange elevation-1"><i class="far fa-comments"></i></span>
 

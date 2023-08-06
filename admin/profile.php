@@ -164,15 +164,4 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
-<script type="text/javascript">
-	$(document).ready(function(){		
-		$('.form-checkbox').click(function(){
-			if($(this).is(':checked')){
-				$('.check').attr('type','text');
-			}else{
-				$('.check').attr('type','password');
-			}
-		});
-	});
-</script>
+      

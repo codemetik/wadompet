@@ -127,26 +127,26 @@ $data = mysqli_fetch_array($query);
 <!-- modal edit -->
       <div class="modal fade" id="modal-sm-edit">
         <div class="modal-dialog modal-sm">
-          <div class="modal-content">
+          <div class="modal-content"><form action="anggota/proses/proses_edit_profile.php" method="post">
             <div class="modal-header">
             	<div class="card-body">
             	<div class="form-group mb-1">
                   <label for="username">Username</label>
-                  <input type="text" id="username" class="form-control" value="<?= $data['user']; ?>" readonly>
+                  <input type="text" name="user" id="username" class="form-control" value="<?= $data['user']; ?>" readonly>
                 </div>
                 <div class="form-group mb-1">
                   <label for="password">Password</label>
-                  <input type="password" id="password" class="form-control check" value="<?= $data['pass']; ?>">
+                  <input type="password" name="password" id="password" class="form-control check" value="<?= $data['pass']; ?>">
                   <input type="checkbox" class="form-checkbox"> Show password
                 </div>
                 <div class="form-group mb-1">
                   <label for="email">Email</label>
-                  <input type="email" id="email" class="form-control" value="<?= $data['email']; ?>">
+                  <input type="email" name="email" id="email" class="form-control" value="<?= $data['email']; ?>">
                 </div>
                 <div class="form-group mb-1">
                   <label for="tlahir">Tempat & Tanggal Lahir</label>
-                  <input type="text" id="tlahir" class="form-control" value="<?= $data['temp_lahir']; ?>">
-                  <input type="date" id="tlahir" class="form-control" value="<?= $data['tgl_lahir']; ?>">
+                  <input type="text" name="temp_lahir" id="tlahir" class="form-control" value="<?= $data['temp_lahir']; ?>">
+                  <input type="date" name="tgl_lahir" id="tlahir" class="form-control" value="<?= $data['tgl_lahir']; ?>">
                 </div>
                 <!-- <div class="form-group mb-1">
                   <label for="tglahir">Tanggal Lahir</label>
@@ -154,15 +154,15 @@ $data = mysqli_fetch_array($query);
                 </div> -->
                 <div class="form-group mb-1">
                   <label for="alamat">Alamat Lengkap</label>
-                  <textarea type="text" id="alamat" class="form-control"><?= $data['alamat_sekarang']; ?>
+                  <textarea type="text" name="alamat_sekarang" id="alamat" class="form-control"><?= $data['alamat_sekarang']; ?>
                   </textarea>
                 </div>
             	</div>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save Change</button>
-            </div>
+              <button type="submit" name="simpan" class="btn btn-primary"><i class="fas fa-save"></i> Save Change</button>
+            </div></form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -170,14 +170,3 @@ $data = mysqli_fetch_array($query);
       </div>
       <!-- /.modal -->
 
-<script type="text/javascript">
-	$(document).ready(function(){		
-		$('.form-checkbox').click(function(){
-			if($(this).is(':checked')){
-				$('.check').attr('type','text');
-			}else{
-				$('.check').attr('type','password');
-			}
-		});
-	});
-</script>

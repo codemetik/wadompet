@@ -4,6 +4,10 @@ $jmlkas = mysqli_fetch_array($sqlkas);
 
 $dompet = mysqli_query($koneksi, "select sum(isi_dompet) as dompet from dompet_user");
 $dtdompet = mysqli_fetch_array($dompet);
+
+$querykskeluar = mysqli_query($koneksi, "select sum(nominal_kas_keluar) as cashout from kas_keluar");
+$kas_keluar = mysqli_fetch_array($querykskeluar);
+
 ?>
 <div class="row">
   <div class="col-md-3 col-sm-6 col-12"><a href="?page=tabungan" class="text-dark">
@@ -11,7 +15,7 @@ $dtdompet = mysqli_fetch_array($dompet);
       <span class="info-box-icon text-orange elevation-1"><i class="fas fa-wallet"></i></span>
 
       <div class="info-box-content">
-      <span class="info-box-text">Wadompet</span>
+      <span class="info-box-text">ALL Wadompet</span>
         <span class="info-box-number"><?= rupiah($dtdompet['dompet']); ?></span>
 
         <div class="progress">
@@ -26,7 +30,7 @@ $dtdompet = mysqli_fetch_array($dompet);
   </a>
   </div>
   <!-- /.col -->
-  <div class="col-md-3 col-sm-6 col-12"><a href="?page=riwayat_tabungan" class="text-dark">
+  <div class="col-md-3 col-sm-6 col-12"><a href="?page=riwayat_tabungankeluar" class="text-dark">
     <div class="info-box callout callout-grey">
       <span class="info-box-icon text-orange elevation-1"><i class="fas fa-money-check"></i></span>
 
@@ -74,7 +78,7 @@ $dtdompet = mysqli_fetch_array($dompet);
 
       <div class="info-box-content">
         <span class="info-box-text">Kas Keluar</span>
-        <span class="info-box-number">Rp. 430.000</span>
+        <span class="info-box-number"><?= rupiah($kas_keluar['cashout']); ?></span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>

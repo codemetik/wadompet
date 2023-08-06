@@ -41,6 +41,9 @@ function rupiah($angka){
   <!-- Add the evo-calendar.css for styling -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/css/evo-calendar.min.css"/>
 
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
 <style type="text/css">
   .bg-nav{
     background-image: linear-gradient(#6495ED, #6495ED);
@@ -64,7 +67,7 @@ function rupiah($angka){
 <div id="loader"></div>
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand bg-nav navbar-light elevation-2">
+  <nav class="main-header navbar navbar-expand bg-nav navbar-primary elevation-1">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -116,9 +119,7 @@ function rupiah($angka){
           </li>
         </ul>
       </nav>
-
-
-
+      
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -129,7 +130,7 @@ function rupiah($angka){
 
 
     <!-- Main content -->
-    <section class="content pt-5 pb-5 mb-5">
+    <section class="content pt-4 pb-3 mb-5">
       <div class="container-fluid">
           <?php 
             if (isset($_GET['page'])) {
@@ -150,14 +151,14 @@ function rupiah($angka){
                 case 'dompet':
                   include "anggota/dompet.php";
                   break;
-                case 'chat_group':
-                  include "anggota/chat_group.php";
-                  break;
-                case 'message':
+              case 'message':
                   include "anggota/message.php";
                   break;
-                case 'transfer':
+              case 'transfer':
                   include "anggota/transfer.php";
+                  break;
+                case 'tariktunai':
+                  include "anggota/tariktunai.php";
                   break;
                   
                 default:
@@ -252,7 +253,7 @@ $data_tiket = mysqli_fetch_array($query_tiket);
   <div class="modal-dialog">
     <div class="modal-content bg-secondary">
       <div class="modal-header">
-        <h4 class="modal-title">Buat tikep topup</h4>
+        <h4 class="modal-title">BUAT TIKET TOPUP</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
       </div>
@@ -340,6 +341,11 @@ $data_tiket = mysqli_fetch_array($query_tiket);
       "autoWidth": false,
     });
 
+    $("#example3").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -361,6 +367,52 @@ $data_tiket = mysqli_fetch_array($query_tiket);
   function showPage(){
     document.getElementById('loader').style.display = "none";
   }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){   
+    $('.form-checkbox').click(function(){
+      if($(this).is(':checked')){
+        $('.check').attr('type','text');
+      }else{
+        $('.check').attr('type','password');
+      }
+    });
+  });
+</script>
+
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
+<script type="text/javascript">
+  $(function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 3000
+    });
+<?php 
+if (isset($_GET['editprofile']) == 'sukses') { ?>
+    $(function() {
+          Toast.fire({
+            type: 'success',
+            title: 'Perubahan data telah disimpan.'
+          })
+        });
+<?php }else if (isset($_GET['tiket']) == 'sukses'){ ?>
+    $(function() {
+          Toast.fire({
+            type: 'success',
+            title: 'Request tiket anda telah terkirim.'
+          })
+        });
+<?php }
+?>
+    
+
+  });
+
 </script>
 </body>
 </html>

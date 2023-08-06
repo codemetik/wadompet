@@ -10,7 +10,7 @@ if (isset($_POST['kirim_tiket'])) {
 	if ($query) {
 		echo "<script>
 		alert('Tiket TOPUP Berhasil dikirim!');
-		document.location.href ='../../anggota.php?page=riwayat_trx';
+		document.location.href ='../../anggota.php?page=riwayat_trx&tiket=sukses';
 		</script>";
 	}else{
 		echo "<script>

@@ -115,23 +115,23 @@ function rupiah($angka){
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="?page=chat_group" class="nav-link text-dark">
+                <a href="use_chatgroup.php" class="nav-link text-dark">
                   <i class="far fa-comments nav-icon"></i>
                   <p>Chat Group</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="?page=chat_private" class="nav-link text-dark">
-                  <i class="fas fa-envelope nav-icon"></i>
-                  <p>Message</p>
-                </a>
-              </li>
+              </li> 
             </ul>
           </li>
           <li class="nav-item">
             <a href="?page=catatan" class="nav-link text-dark">
               <i class="nav-icon fas fa-book"></i>
               <p>Catatan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="?page=daftarlogin" class="nav-link text-dark">
+              <i class="nav-icon fas fa-bookmark"></i>
+              <p>Daftar Login</p>
             </a>
           </li>
           <li class="nav-item">
@@ -155,7 +155,7 @@ function rupiah($angka){
 
 
     <!-- Main content -->
-    <section class="content pt-5 pb-5 mb-5">
+    <section class="content pt-4 pb-3 mb-5">
       <div class="container-fluid">
         <!-- =========================================================== -->
             <?php 
@@ -182,8 +182,8 @@ function rupiah($angka){
                 case 'tabungan':
                   include "admin/tabungan.php";
                   break;
-                case 'riwayat_tabungan':
-                  include "admin/riwayat_tabungan.php";
+                case 'riwayat_tabungankeluar':
+                  include "admin/riwayat_tabungankeluar.php";
                   break;
                 case 'kas_masuk':
                   include "admin/kas_masuk.php";
@@ -199,6 +199,9 @@ function rupiah($angka){
                   break;
                 case 'catatan':
                   include "admin/catatan.php";
+                  break;
+                case 'daftarlogin':
+                  include "admin/daftarlogin.php";
                   break;
                   
                 default:
@@ -252,12 +255,6 @@ function rupiah($angka){
 
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
   <footer class="main-footer bg-foot">
@@ -388,5 +385,18 @@ function rupiah($angka){
     document.getElementById('loader').style.display = "none";
   }
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){   
+    $('.form-checkbox').click(function(){
+      if($(this).is(':checked')){
+        $('.check').attr('type','text');
+      }else{
+        $('.check').attr('type','password');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

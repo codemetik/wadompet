@@ -9,7 +9,7 @@ if (isset($_GET['idijin']) == 'idijin') {
 	$data = mysqli_fetch_array($queryselect);
 
 	$date = date('Y-m-d H:i:s');
-	$queryinsert = mysqli_query($koneksi, "insert into riwayat_topup(id_riwayat, id_dompet, tgl_trx, saldo_masuk, saldo_keluar,status) values('','".$data['id_dompet']."','$date','".$data['nominal_topup']."','','DISETUJUI')");
+	$queryinsert = mysqli_query($koneksi, "insert into riwayat_topup(id_riwayat, id_dompet, tgl_trx, saldo_masuk, saldo_awal, status) values('','".$data['id_dompet']."','$date','".$data['nominal_topup']."','".$data['isi_dompet']."','DISETUJUI')");
 	if ($queryinsert) {
 
 		$delete = mysqli_query($koneksi, "delete from tiket_topup where id_tiket = '".$data['id_tiket']."'");
@@ -17,14 +17,14 @@ if (isset($_GET['idijin']) == 'idijin') {
 		if ($delete) {
 			echo "<script>
 			alert('Tiket TOPUP Berhasil di SETUJUI');
-			document.location.href = '../../admin.php?page=home';
+			document.location.href = '../../admin.php?page=request_tiket';
 			</script>";	
 		}
 		
 	}else{
 		echo "<script>
 		alert('Tiket TOPUP Gagal di SETUJUI');
-		document.location.href = '../../admin.php?page=home';
+		document.location.href = '../../admin.php?page=request_tiket';
 		</script>";
 	}
 }else if (isset($_GET['idtolak']) == 'idtolak') {

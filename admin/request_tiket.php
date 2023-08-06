@@ -2,7 +2,7 @@
 	<div class="col-sm-12">
 		<div class="card">
 			<div class="card-header bg-nav">
-				<h1 class="card-title text-bold">Tiket Masuk</h1>
+				<h1 class="card-title text-bold">Tiket Masuk TopUp</h1>
 			</div>
 			<div class="card-body">
 			<table id="example1" class="table table-sm table-bordered table-striped">

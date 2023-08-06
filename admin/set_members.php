@@ -19,28 +19,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<img src="dist/img/user1-128x128.jpg" class="img-circle" alt="User Image" width="60" height="60">
-						</td>
-						<td>Bambang Prayogo</td>
-						<td>prayogo</td>
-						<td>prayogo@gmail.com</td>
-						<td>Pemalang, 13.15.2020</td>
-						<td>Ds. Iser, Kec. Petarukan, Kab. Pemalang</td>
-						<td><a href="" class="btn btn-white elevation-1" title="Edit Data"><i class="fas fa-edit text-orange"></i></a> || <a href="" class="btn btn-white elevation-1" title="Hapus Data"><i class="fas fa-trash text-orange"></i></a></td>
-					</tr>
-					<tr>
-						<td>
-							<img src="dist/img/user1-128x128.jpg" class="img-circle" alt="User Image" width="60" height="60">
-						</td>
-						<td>Adi Saputro</td>
-						<td>Adi</td>
-						<td>prayogo@gmail.com</td>
-						<td>Pemalang, 13.15.2020</td>
-						<td>Ds. Iser, Kec. Petarukan, Kab. Pemalang</td>
-						<td><a href="" class="btn btn-white elevation-1" title="Edit Data"><i class="fas fa-edit text-orange"></i></a> || <a href="" class="btn btn-white elevation-1" title="Hapus Data"><i class="fas fa-trash text-orange"></i></a></td>
-					</tr>
+
 					<?php 
 
 					$query = mysqli_query($koneksi, "select * from tb_user");
@@ -55,7 +34,7 @@
 						<td><?= $data['email']; ?></td>
 						<td><?= $data['temp_lahir'] . ", " . $data['tgl_lahir']; ?></td>
 						<td><?= $data['alamat_sekarang']; ?></td>
-						<td><a href="" class="btn btn-white elevation-1" title="Edit Data"><i class="fas fa-edit text-orange"></i></a> || <a href="" class="btn btn-white elevation-1" title="Hapus Data"><i class="fas fa-trash text-orange"></i></a></td>
+						<td><a href="" class="btn btn-white elevation-1" title="Edit Data"><i class="fas fa-edit text-orange"></i></a></td>
 					</tr>
 					<?php }
 
