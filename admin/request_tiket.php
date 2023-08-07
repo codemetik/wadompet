@@ -9,7 +9,8 @@
 				<thead>
 					<tr>
 						<th>ID Tiket</th>
-						<th>Nama Anggota</th>
+						<th>Username</th>
+						<th>Nama</th>
 						<th>Nominal TOPUP</th>
 						<th>Waktu</th>
 						<th>Status</th>
@@ -18,10 +19,11 @@
 				</thead>
 				<tbody>
 					<?php 
-					$query = mysqli_query($koneksi, "select id_tiket, x.id_user, nama_lengkap, nominal_topup, tgl_tiket, status from tb_user y inner join tiket_topup x on x.id_user = y.id_user;");
+					$query = mysqli_query($koneksi, "select id_tiket, x.id_user, user, nama_lengkap, nominal_topup, tgl_tiket, status from tb_user y inner join tiket_topup x on x.id_user = y.id_user;");
 					while ($data = mysqli_fetch_array($query)) { ?>
 						<tr>
 							<td><?= $data['id_tiket']; ?></td>
+							<td><?= $data['user']; ?></td>
 							<td><?= $data['nama_lengkap']; ?></td>
 							<td><?= $data['nominal_topup']; ?></td>
 							<td><?= $data['tgl_tiket']; ?></td>

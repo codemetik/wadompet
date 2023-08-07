@@ -203,6 +203,9 @@ function rupiah($angka){
                 case 'daftarlogin':
                   include "admin/daftarlogin.php";
                   break;
+                case 'edit_set_member':
+                  include "admin/edit_set_member.php";
+                  break;
                   
                 default:
                   include 'admin/home.php';

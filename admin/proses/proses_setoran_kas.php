@@ -14,7 +14,7 @@ if (isset($_POST['setorkas'])) {
   $jumlahkas = $number * $jumlah_pilih;
   $uangkas = mysqli_query($koneksi, "select * from uang_kas");
   $dtkas = mysqli_fetch_array($uangkas);
-  mysqli_query($koneksi, "update uang_kas set total_kas = ".$dtkas['total_kas']." + $jumlahkas");
+  mysqli_query($koneksi, "update uang_kas set total_kas = ".$dtkas['total_kas']." + $jumlahkas where id_kas = '2'");
 
   echo "<script>
   alert('Data berhasil masuk');

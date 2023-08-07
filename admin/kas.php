@@ -1,7 +1,7 @@
 <form action="admin/proses/proses_setoran_kas.php" method="post">
-<div class="row elevation-1 p-2 m-1 bg-nav">
+<div class="row elevation-1 card p-2">
   <div class="col-sm-12">
-    <div class="info-box callout callout-grey bg-dark">
+    <div class="info-box callout callout-grey bg-nav">
       <div class="info-box-content form-group">
       	<label for="number">Nominal Topup KAS</label>
       	<input type="number" id="number" name="number" class="form-control text-lg" placeholder="Rp." required>
@@ -10,16 +10,19 @@
     <!-- /.info-box -->
   </div>
   <div class="col-sm-12">
-    <div class="info-box callout callout-grey bg-dark">
+    <div class="info-box callout callout-grey bg-nav">
       <div class="info-box-content form-group">
       	<label>Pilih Rekening Siswa</label>
       	  <select class="select2bs4" name="id_user[]" multiple="multiple" data-placeholder="Select a No Bank"
-          style="width: 100%;">
+          style="width: 100%;" required>
           <?php 
           $query = mysqli_query($koneksi, "select * from tb_user");
-          while ($data = mysqli_fetch_array($query)) { ?>
-            <option value="<?= $data['id_user']; ?>"><?= $data['id_user'].", ".$data['nama_lengkap']; ?></option>
-          <?php }
+          while ($data = mysqli_fetch_array($query)) { 
+            if ($data['id_level'] != '1') {
+            ?>
+            <option value="<?= $data['id_user']; ?>"><?= $data['id_user'].", ".$data['user'].", ".$data['nama_lengkap']; ?></option>
+          <?php } 
+          }
           ?>
 		  </select>
       </div>
@@ -27,7 +30,7 @@
     <!-- /.info-box -->
   </div>
   <div class="col-sm-12 text-center">
-  	<button type="submit" name="setorkas" class="btn bg-light elevation-1 text-bold" onclick="return confirm('Yakin data akan dikirim?')"><i class="fas fa-paper-plane text-orange"></i>  Kirim</button>
+  	<button type="submit" name="setorkas" class="btn bg-light elevation-1 text-bold" onclick="return confirm('Yakin data akan dikirim?')"><i class="fas fa-paper-plane text-orange"></i>  Kirim Dana Kas</button>
   </div>
 </div>
 </form>

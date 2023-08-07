@@ -5,7 +5,7 @@ $query = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y
 inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SERVER['HTTP_USER_AGENT']."' group by x.id_user asc");
 $username = mysqli_fetch_array($query);
 
-  $querydata = mysqli_query($koneksi, "select * from tb_user x inner join chatgroup y on x.id_user = y.id_user");
+  $querydata = mysqli_query($koneksi, "select * from tb_user x inner join chatgroup y on x.id_user = y.id_user group by id_chat desc");
   while($uses = mysqli_fetch_array($querydata)) {
     if ($uses['id_user'] != $username['id_user']) { ?>
 

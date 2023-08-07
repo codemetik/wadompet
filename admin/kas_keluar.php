@@ -15,11 +15,11 @@
 						<label for="desk">Deskripsi</label>
 						<textarea class="form-control" name="deskripsi" id="desk" placeholder="Kebutuhan Foto Copy" required></textarea>
 					</div>
-					<div class="form-group bg-warning p-1">
+					<div class="form-group p-1 alert alert-warning text-bold">
 						<p>Penarikan ini akan mengurangi nilai saldo kas yang ada. Harap lebih berhati-hati!</p>
 					</div>
 					<div class="form-group">
-						<button type="submit" name="kas_keluar" class="btn bg-light elevation-1 text-bold"><i class="fas fa-money-bill text-orange"></i>  Tarik</button>
+						<button type="submit" name="kas_keluar" class="btn bg-light elevation-1 text-bold" onclick="return confirm('Yakin akan menarik dana?')"><i class="fas fa-money-bill text-orange"></i>  Tarik</button>
 					</div>
 				</form>
 			</div>

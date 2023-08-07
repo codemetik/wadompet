@@ -127,21 +127,21 @@
             	<div class="card-body">
             	<div class="form-group mb-1">
                   <label for="username">Username</label>
-                  <input type="text" id="username" class="form-control" value="Bambang Prayogo">
+                  <input type="text" id="username" class="form-control" value="<?= $show['user']; ?>">
                 </div>
                 <div class="form-group mb-1">
                   <label for="password">Password</label>
-                  <input type="password" id="password" class="form-control check" value="Ketuakelas">
+                  <input type="password" id="password" class="form-control check" value="<?= $show['pass']; ?>">
                   <input type="checkbox" class="form-checkbox"> Show password
                 </div>
                 <div class="form-group mb-1">
                   <label for="email">Email</label>
-                  <input type="email" id="email" class="form-control" value="prayogo@gmail.com">
+                  <input type="email" id="email" class="form-control" value="<?= $show['email']; ?>">
                 </div>
                 <div class="form-group mb-1">
                   <label for="tlahir">Tempat & Tanggal Lahir</label>
-                  <input type="text" id="tlahir" class="form-control" value="Pemalang">
-                  <input type="date" id="tlahir" class="form-control" value="">
+                  <input type="text" id="tlahir" class="form-control" value="<?= $show['temp_lahir']; ?>">
+                  <input type="date" id="tlahir" class="form-control" value="<?= $show['tgl_lahir']; ?>">
                 </div>
                 <!-- <div class="form-group mb-1">
                   <label for="tglahir">Tanggal Lahir</label>
@@ -149,8 +149,7 @@
                 </div> -->
                 <div class="form-group mb-1">
                   <label for="alamat">Alamat Lengkap</label>
-                  <textarea type="text" id="alamat" class="form-control">Ds. Tegalmlati, Kec. Petarukan, Kab. Pemalang
-                  </textarea>
+                  <textarea type="text" id="alamat" class="form-control"><?= $show['alamat_sekarang']; ?></textarea>
                 </div>
             	</div>
             </div>

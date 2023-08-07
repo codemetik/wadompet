@@ -105,14 +105,14 @@ function rupiah($angka){
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="?page=message" class="nav-link active">
+          <!-- <li class="nav-item has-treeview menu-open">
+            <a href="?page=message<file sudah dihapus>" class="nav-link active">
               <i class="nav-icon fas fa-envelope"></i>
               <p>
                 Message
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="logout.php" class="nav-link text-dark">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -153,17 +153,14 @@ function rupiah($angka){
                 case 'dompet':
                   include "anggota/dompet.php";
                   break;
-              case 'message':
-                  include "anggota/message.php";
-                  break;
-              case 'transfer':
-                  include "anggota/transfer.php";
-                  break;
-                case 'tariktunai':
+                  case 'tariktunai':
                   include "anggota/tariktunai.php";
                   break;
                 case 'sendsaldo':
                   include "anggota/sendsaldo.php";
+                  break;
+                case 'kas_user':
+                  include "anggota/kas_user.php";
                   break;
                   
                 default:
@@ -430,11 +427,23 @@ if (isset($_GET['editprofile']) == 'sukses') { ?>
           })
         });
 <?php }
-?>
-    
+?>  
+});
 
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    function show() {
+      $("#showone").load("chat/widgets.php");
+    }
+    show();
+    setInterval(show,1);
+    function notifcat() {
+      $("#notifcat").load("chat/notifcat.php");
+    }
+    notifcat();
+    setInterval(notifcat,1);
   });
-
 </script>
 </body>
 </html>

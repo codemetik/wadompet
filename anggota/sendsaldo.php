@@ -12,40 +12,41 @@
 			<button class="btn bg-white elevation-1 text-bold" name="kirimsaldo" onclick="return confirm('Yakin ingin kirim saldo?')"><i class="fas fa-paper-plane text-orange"></i> Kirim Sekarang</button>
 		</div></form>
 	</div>
-		<div class="col-sm-12">
-	<div class="card">
-		<div class="card-header bg-nav">
-			<h1 class="card-title text-bold float-left">Mutasi Sado Keluar</h1>
-		</div>
-		<div class="card-body">
-			<table id="example1" class="table table-sm table-bordered table-striped">
-				<thead>
-					<tr class="text-center">
-						<th>TGL TRX</th>
-						<th>Saldo Keluar</th>
-						<th>Saldo Awal</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php 
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-header bg-nav">
+				<h1 class="card-title text-bold float-left">Mutasi Sado Keluar</h1>
+			</div>
+			<div class="card-body">
+				<table id="example1" class="table table-sm table-bordered table-striped">
+					<thead>
+						<tr class="text-center">
+							<th>TGL TRX</th>
+							<th>Saldo Keluar</th>
+							<th>Saldo Awal</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
 
-					$query = mysqli_query($koneksi, "select * from riwayat_topup x inner join dompet_user y on y.id_dompet = x.id_dompet where x.id_dompet = '".$user['id_dompet']."'");
-					while ($data = mysqli_fetch_array($query)) {
-					?>
-					<tr>
-						<td><?= $data['tgl_trx']; ?></td>
-						<td><?= rupiah($data['saldo_keluar']); ?></td>
-						<td><?= rupiah($data['saldo_awal']); ?></td>
-						<td><p class="text-danger"><?= $data['status']; ?></p></td>
-					</tr>
-					<?php }
-					?>
-				</tbody>
-			</table>
+						$query = mysqli_query($koneksi, "select * from riwayat_tariktunai x inner join dompet_user y on y.id_dompet = x.id_dompet where x.id_dompet = '".$user['id_dompet']."'");
+						while ($data = mysqli_fetch_array($query)) {
+						?>
+						<tr>
+							<td><?= $data['tgl_trxtarik']; ?></td>
+							<td><?= rupiah($data['saldo_keluar']); ?></td>
+							<td><?= rupiah($data['saldo_awal']); ?></td>
+							<td><p class="text-success"><?= $data['status']; ?> Sukses</p></td>
+						</tr>
+						<?php }
+						?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	</div>
+
 </div>
 <?php 
 	if (isset($_POST['kirimsaldo'])) {
@@ -66,7 +67,9 @@
 			//insert table riwayat_topup untuk tambah saldo
 			$insertbalance = mysqli_query($koneksi, "insert into riwayat_topup values('','".$to['id_dompet']."','$date','$saldo','".$to['isi_dompet']."','SENDSALDO')");
 
-			if ($catbalance && $insertbalance) {
+			$inserttable = mysqli_query($koneksi, "insert into sendsaldo values('','$id_dompet','".$to['id_dompet']."','$date')");
+
+			if ($catbalance && $insertbalance && $inserttable) {
 				echo "<script>
 				document.location.href = 'anggota.php?page=sendsaldo';
 				</script>";

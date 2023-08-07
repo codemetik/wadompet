@@ -140,13 +140,14 @@ function rupiah($angka){
 
 
 
-<div class="main-footer">
+<div class="main-footer bg-dark">
    <form method="post" id="form-user">
     <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user']; ?>">
     <div class="input-group">
       <input type="text" name="message" id="message" placeholder="Ketik pesan ..." class="form-control" required autofocus>
       <span class="input-group-append">
-        <input type="submit" name="kirim" id="kirim" class="btn btn-primary" value="Send" />
+<!--         <input type="submit" name="kirim" id="kirim" class="btn btn-primary" value="Send" /> -->
+        <button type="submit" name="kirim" id="kirim" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
       </span>
     </div>
   </form>
@@ -236,7 +237,7 @@ $(document).ready(function(){
 <script type="text/javascript">
   $(document).ready(function(){
     function show() {
-      $("#showchat").load("anggota/showchat.php");
+      $("#showchat").load("chat/showchat.php");
     }
     show();
     setInterval(show,1);

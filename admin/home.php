@@ -1,6 +1,7 @@
 <?php 
-$sqlkas = mysqli_query($koneksi, "select * from uang_kas");
+$sqlkas = mysqli_query($koneksi, "select total_kas as total from uang_kas");
 $jmlkas = mysqli_fetch_array($sqlkas);
+$jml = mysqli_num_rows($sqlkas);
 
 $dompet = mysqli_query($koneksi, "select sum(isi_dompet) as dompet from dompet_user");
 $dtdompet = mysqli_fetch_array($dompet);
@@ -35,8 +36,8 @@ $kas_keluar = mysqli_fetch_array($querykskeluar);
       <span class="info-box-icon text-orange elevation-1"><i class="fas fa-money-check"></i></span>
 
       <div class="info-box-content">
-        <span class="info-box-text">Tabungan Keluar</span>
-        <span class="info-box-number">Rp. 40.000</span>
+        <span class="info-box-text">Aktivitas</span>
+        <span class="info-box-number">Tarik Tunai Tabungan</span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>
@@ -57,7 +58,7 @@ $kas_keluar = mysqli_fetch_array($querykskeluar);
 
       <div class="info-box-content">
         <span class="info-box-text">KAS Masuk</span>
-        <span class="info-box-number"><?= rupiah($jmlkas['total_kas']); ?></span>
+        <span class="info-box-number"><?= ($jml > 0) ? rupiah($jmlkas['total']) : rupiah(0) ; ?></span>
 
         <div class="progress">
           <div class="progress-bar" style="width: 70%"></div>
@@ -98,7 +99,7 @@ $kas_keluar = mysqli_fetch_array($querykskeluar);
   <div class="col-sm-12">
   <div class="card">
     <div class="card-header bg-nav">
-      <h1 class="card-title text-bold float-left">Riwayat</h1>
+      <h1 class="card-title text-bold float-left">Riwayat Topup Wadompet</h1>
     </div>
     <div class="card-body">
       <table id="example1" class="table table-sm table-bordered table-striped">
