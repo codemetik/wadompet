@@ -9,6 +9,7 @@
         <thead>
           <tr class="text-center">
             <th>No</th>
+            <th>User</th>
             <th>Nama Anggota</th>
             <th>Isi Dompet</th>
           </tr>
@@ -16,11 +17,12 @@
         <tbody>
           <?php 
           $no=1;
-          $query = mysqli_query($koneksi, "select nama_lengkap, isi_dompet from tb_user y inner join dompet_user x on x.id_user = y.id_user");
+          $query = mysqli_query($koneksi, "select user, nama_lengkap, isi_dompet from tb_user y inner join dompet_user x on x.id_user = y.id_user");
           while ($data = mysqli_fetch_array($query)) {
           ?>
           <tr>
             <td><?= $no++; ?></td>
+            <th><?= $data['user']; ?></th>
             <td><?= $data['nama_lengkap']; ?></td>
             <td><?= rupiah($data['isi_dompet']); ?></td>
           </tr>

@@ -29,7 +29,7 @@ function rupiah($angka){
   <title>Wadompet</title>
   <link rel="icon" href="dist/img/wallet.svg">
 
-  <link rel="stylesheet" type="text/css" href="dist/css/style.css">
+<!--   <link rel="stylesheet" type="text/css" href="dist/css/style.css"> -->
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -68,8 +68,9 @@ function rupiah($angka){
 </style>
 
 </head>
-<body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed" onload="myFunction()" style="margin: 0;">
-<div id="loader"></div>
+<body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed" >
+<!--   onload="myFunction()" style="margin: 0;"
+<div id="loader"></div> -->
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-nav navbar-primary elevation-1">
@@ -125,9 +126,7 @@ function rupiah($angka){
       <div class="row">
         <div class="col-sm-12" id="showchat">
           <!-- shochat -->
-          <?php 
-          // include "anggota/showchat.php"; 
-          ?>
+         
         </div>
       </div>
 
@@ -139,19 +138,15 @@ function rupiah($angka){
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+
 
 <div class="main-footer">
-   <form action="anggota/proses/proses_chatGroup.php" method="post">
-    <input type="hidden" name="id_user" value="<?= $user['id_user']; ?>">
+   <form method="post" id="form-user">
+    <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user']; ?>">
     <div class="input-group">
-      <input type="text" name="message" placeholder="Ketik pesan ..." class="form-control" required autofocus>
+      <input type="text" name="message" id="message" placeholder="Ketik pesan ..." class="form-control" required autofocus>
       <span class="input-group-append">
-        <input type="submit" name="kirim" class="btn btn-primary" onclick="autoScroll();" value="Send" />
+        <input type="submit" name="kirim" id="kirim" class="btn btn-primary" value="Send" />
       </span>
     </div>
   </form>
@@ -163,65 +158,36 @@ function rupiah($angka){
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.js"></script>
-<script src="plugins/jquery/jquery.min.js"></script>
+<!-- <script src="plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="dist/js/demo.js"></script>
+<!-- <script src="dist/js/demo.js"></script> -->
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<!-- <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="plugins/raphael/raphael.min.js"></script>
 <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script> -->
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
 
 <!-- PAGE SCRIPTS -->
-<script src="dist/js/pages/dashboard2.js"></script>
+<!-- <script src="dist/js/pages/dashboard2.js"></script> -->
 
 <!-- Add jQuery library (required) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script> -->
 
 <!-- Add the evo-calendar.js for.. obviously, functionality! -->
-<script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
-<script>
-  $('#calendar').evoCalendar({
-    theme: 'Royal Navy'
-});
-</script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
 
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   var myVar;
   function myFunction(){
     myVar = setTimeout(showPage, 1000);
@@ -230,17 +196,51 @@ function rupiah($angka){
   function showPage(){
     document.getElementById('loader').style.display = "none";
   }
-</script>
-<script type="text/javascript">
+</script> -->
+<!-- <script type="text/javascript">
   function autoScroll(){
     var konten = document.getElementById("msg");
     konten.scrollIntoView();
   }
+</script> -->
+<!-- <script type="text/javascript">
+
+</script> -->
+<script type="text/javascript">
+  var scrollDown = function(){
+    let chatBox = document.getElementById('showchat');
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+  scrollDown();
+
+$(document).ready(function(){
+  $('#kirim').on('click', function(){
+      var data = $('#form-user').serialize();
+      var id_user = $('#id_user').val();
+      var message = $('#message').val();
+      if (message == "") return;
+      $.ajax({
+        method: "POST",
+        url: 'anggota/proses/proses_chatGroup.php',
+        data: { type: "insert", id_user:id_user, message:message },
+        success: function(data){
+          $('#showchat').append(data);
+          scrollDown();
+        }
+        
+      });
+  });
+
+});
 </script>
 <script type="text/javascript">
-  setInterval(function(){
-    $("#showchat").load("anggota/showchat.php");
-  },1);
+  $(document).ready(function(){
+    function show() {
+      $("#showchat").load("anggota/showchat.php");
+    }
+    show();
+    setInterval(show,1);
+  });
 </script>
 </body>
 </html>

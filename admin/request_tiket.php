@@ -27,7 +27,7 @@
 							<td><?= $data['tgl_tiket']; ?></td>
 							<td><?= $data['status']; ?></td>
 							<td>
-								<a href="admin/proses/proses_request_tiket.php?idijin=<?= $data['id_tiket']; ?>" class="btn btn-white elevation-1 text-success text-bold" title="Edit Data">SETUJUI</a> || <a href="admin/proses/proses_request_tiket.php?idtolak=<?= $data['id_tiket']; ?>" class="btn btn-white elevation-1 text-danger text-bold" title="Hapus Data">TOLAK</a>
+								<a href="admin/proses/proses_request_tiket.php?idijin=<?= $data['id_tiket']; ?>" class="btn btn-white elevation-1 text-success text-bold" title="Edit Data" onclick="return confirm('TopUp disetujui! Yakin?')">SETUJUI</a> || <a href="admin/proses/proses_request_tiket.php?idtolak=<?= $data['id_tiket']; ?>" class="btn btn-white elevation-1 text-danger text-bold" title="Hapus Data" onclick="return confirm('TopUp ditolak! Yakin?')">TOLAK</a>
 							</td>
 						</tr>
 					<?php }

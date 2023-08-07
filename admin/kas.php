@@ -27,7 +27,7 @@
     <!-- /.info-box -->
   </div>
   <div class="col-sm-12 text-center">
-  	<button type="submit" name="setorkas" class="btn bg-light elevation-1 text-bold"><i class="fas fa-paper-plane text-orange"></i>  Kirim</button>
+  	<button type="submit" name="setorkas" class="btn bg-light elevation-1 text-bold" onclick="return confirm('Yakin data akan dikirim?')"><i class="fas fa-paper-plane text-orange"></i>  Kirim</button>
   </div>
 </div>
 </form>

@@ -20,7 +20,7 @@
 				<tbody>
 					<?php 
 
-					$query = mysqli_query($koneksi, "select id_tiket, x.id_user, nama_lengkap, nominal_topup, tgl_tiket, status, deskripsi from tb_user y inner join tiket_topup x on x.id_user = y.id_user");
+					$query = mysqli_query($koneksi, "select id_tiket, x.id_user, nama_lengkap, nominal_topup, tgl_tiket, status, deskripsi from tb_user y inner join tiket_topup x on x.id_user = y.id_user where y.id_user = '".$user['id_user']."'");
 					while ($data = mysqli_fetch_array($query)) {
 					?>
 					<tr>
@@ -60,7 +60,7 @@
 				<tbody>
 					<?php 
 
-					$query = mysqli_query($koneksi, "select id_tikettarik, x.id_user, nama_lengkap, nominal_tarik, tgl_tariktunai, status, deskripsi from tb_user y inner join tiket_tariktunai x on x.id_user = y.id_user");
+					$query = mysqli_query($koneksi, "select id_tikettarik, x.id_user, nama_lengkap, nominal_tarik, tgl_tariktunai, status, deskripsi from tb_user y inner join tiket_tariktunai x on x.id_user = y.id_user where y.id_user = '".$user['id_user']."'");
 					while ($data = mysqli_fetch_array($query)) {
 					?>
 					<tr>

@@ -36,7 +36,7 @@ if (isset($_GET['idijin']) == 'idijin') {
 	$querydelete = mysqli_query($koneksi, "DELETE FROM tiket_topup WHERE id_tiket = '".$data['id_tiket']."'");
 	
 	$date = date('Y-m-d H:i:s');
-	$queryinsert = mysqli_query($koneksi, "insert into riwayat_topup(id_riwayat, id_dompet, tgl_trx, saldo_masuk, saldo_keluar,status) values('','".$data['id_dompet']."','$date','".$data['nominal_topup']."','','DITOLAK')");
+	$queryinsert = mysqli_query($koneksi, "insert into riwayat_topup(id_riwayat, id_dompet, tgl_trx, saldo_masuk, saldo_awal,status) values('','".$data['id_dompet']."','$date','".$data['nominal_topup']."','','DITOLAK')");
 
 	if ($querydelete && $queryinsert) {
 		echo "<script>

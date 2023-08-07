@@ -20,7 +20,7 @@
             <!-- /.description-block -->
           </div>
           <!-- /.col -->
-          <div class="col-sm-6 col-6"><a href="" class="text-orange">
+          <div class="col-sm-6 col-6"><a href="?page=sendsaldo" class="text-orange">
             <div class="description-block">
               <h5 class="description-header">Kirim</h5>
             </div></a>

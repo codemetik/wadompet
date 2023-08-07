@@ -37,6 +37,8 @@ function rupiah($angka){
     <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 
   <!-- Add the evo-calendar.css for styling -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/css/evo-calendar.min.css"/>
@@ -159,6 +161,9 @@ function rupiah($angka){
                   break;
                 case 'tariktunai':
                   include "anggota/tariktunai.php";
+                  break;
+                case 'sendsaldo':
+                  include "anggota/sendsaldo.php";
                   break;
                   
                 default:
@@ -322,12 +327,12 @@ $data_tiket = mysqli_fetch_array($query_tiket);
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
 <!-- Add the evo-calendar.js for.. obviously, functionality! -->
-<script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
 <script>
   $('#calendar').evoCalendar({
     theme: 'Royal Navy'
 });
-</script>
+</script> -->
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -356,6 +361,23 @@ $data_tiket = mysqli_fetch_array($query_tiket);
       "responsive": true,
     });
   });
+</script>
+
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
+
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+  })
 </script>
 
 <script type="text/javascript">
