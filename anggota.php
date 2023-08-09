@@ -1,13 +1,17 @@
 <?php 
 session_start();
 include "koneksi.php";
-if (!isset($_SESSION['agent'])) {
+if (!isset($_SESSION['agent']) && !isset($_SESSION['id_user'])) {
   echo "<script>document.location.href = 'login.php';</script>";
 }
 
 $query = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y on y.id_user = x.id_user 
-inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SESSION['agent']."' group by x.id_user asc");
+inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SESSION['agent']."' and x.id_user = '".$_SESSION['id_user']."' group by x.id_user asc");
 $user = mysqli_fetch_array($query);
+
+if ($user['id_level'] != '2') {
+  echo "<script>document.location.href = 'logout.php';</script>";
+}
 
 function rupiah($angka){
   $hasil_rupiah = "Rp. " . number_format($angka, 2 ,',','.');

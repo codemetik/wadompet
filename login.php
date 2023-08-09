@@ -39,7 +39,7 @@
 
       <form action="" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="user" class="form-control" placeholder="Username" autofocus>
+          <input type="text" name="user" class="form-control" placeholder="Username" autofocus required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="pass" class="form-control" placeholder="Password">
+          <input type="password" name="pass" class="form-control" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -108,20 +108,30 @@ $querylvel = mysqli_query($koneksi, "select * from tb_user where user = '$user' 
 
   if (mysqli_num_rows($querylvel) > 0 ) {
     $data = mysqli_fetch_array($querylvel);
+    $id_user = $data['id_user'];
     $date = date('Y-m-d H:i:s');
-    $insert_os_agent = mysqli_query($koneksi, "insert into user_agent values('','".$data['id_user']."','$date','".$_SERVER['HTTP_USER_AGENT']."')");
+    $name_agent = $_SERVER['HTTP_USER_AGENT'];
+    $insert_os_agent = mysqli_query($koneksi, "insert into user_agent values('','".$data['id_user']."','$date','".$name_agent."')");
 
-    if ($data['id_level'] == '1' ) {
-      if ($insert_os_agent) {
-        $_SESSION['agent'] = $_SERVER['HTTP_USER_AGENT'];
+    function tb_user($koneksi, $id_user, $name_agent){
+      $query = mysqli_query($koneksi, "select * from user_agent where id_user = '$id_user' and name_user_agent = '".$name_agent."' group by id_user asc");
+      $data = mysqli_fetch_array($query);
+      $isi = $data['name_user_agent'];
+      return $isi;
+    }
+    $name_user_agent = tb_user($koneksi, $id_user, $name_agent);
+
+    if ($data['id_level'] == '1') {
+        $_SESSION['agent'] = $name_user_agent;
+        $_SESSION['id_user'] = $data['id_user'];
         echo "<script>
         alert('ANDA LOGIN SEBAGAI ADMIN');
         document.location.href = 'admin.php';
         </script>";
-      }
-    }else if($data['id_level'] == '2' && $insert_os_agent){
+    }else if($data['id_level'] == '2'){
       if ($insert_os_agent) {
-        $_SESSION['agent'] = $_SERVER['HTTP_USER_AGENT'];
+        $_SESSION['agent'] = $name_user_agent;
+        $_SESSION['id_user'] = $data['id_user'];
         echo "<script>
         alert('ANDA LOGIN SEBAGAI ANGGOTA');
         document.location.href = 'anggota.php';

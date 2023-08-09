@@ -1,18 +1,26 @@
 <?php 
 session_start();
 include "koneksi.php";
-if (!isset($_SESSION['agent'])) {
+
+
+$query = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y on y.id_user = x.id_user 
+inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SESSION['agent']."' and x.id_user = '".$_SESSION['id_user']."' group by x.id_user asc");
+$user = mysqli_fetch_array($query);
+$cek = mysqli_num_rows($query);
+if (!isset($_SESSION['agent']) && !isset($_SESSION['id_user']) || isset($_SERVER['HTTP_USER_AGENT']) != $user['name_user_agent']) {
   echo "<script>document.location.href = 'login.php';</script>";
 }
 
-$query = mysqli_query($koneksi, "select * from user_agent x inner join tb_user y on y.id_user = x.id_user 
-inner join dompet_user z on z.id_user = y.id_user where name_user_agent = '".$_SESSION['agent']."' group by x.id_user asc");
-$user = mysqli_fetch_array($query);
-if ($user['id_level'] == '1') {
-  $link = 'admin.php';
-}else if ($user['id_level'] == '2') {
-  $link = 'anggota.php';
+if ($cek > 0 ) {
+  if ($user['id_level'] == '1') {
+    $link = 'admin.php';
+  }else if ($user['id_level'] == '2') {
+    $link = 'anggota.php';
+  }  
+}else{
+  $link = 'index.php';
 }
+
 
 function rupiah($angka){
   $hasil_rupiah = "Rp. " . number_format($angka, 2 ,',','.');
