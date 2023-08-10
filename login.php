@@ -1,4 +1,16 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include "koneksi.php";
+
+if (isset($_SERVER['HTTP_USER_AGENT'])) {
+
+  $show_agent = mysqli_query($koneksi, "select * from user_agent where name_user_agent = '".$_SERVER['HTTP_USER_AGENT']."'");
+  $cek_agent = mysqli_num_rows($show_agent);
+  if ($cek_agent > 0) {
+    header("location:index.php");
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +110,7 @@
 </html>
 
 <?php 
-include "koneksi.php";
+
 
 if (isset($_POST['login'])) {
 $user = $_POST['user'];

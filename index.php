@@ -13,15 +13,17 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 		$user = mysqli_fetch_array($query_user);
 
 		if (mysqli_num_rows($query_user) > 0) {
-			if (isset($user['id_level']) == '1') {
+
+			if ($user['id_level'] == '1') {
 				$_SESSION['agent'] = $show['name_user_agent'];
 				$_SESSION['id_user'] = $user['id_user'];
 				header("location:admin.php");
-			}else if (isset($user['id_level']) == '2') {
+			}else if ($user['id_level'] == '2') {
 				$_SESSION['agent'] = $show['name_user_agent'];
 				$_SESSION['id_user'] = $user['id_user'];
 				header("location:anggota.php");
 			} //
+
 		}else{
 			header("location:login.php");
 		}
