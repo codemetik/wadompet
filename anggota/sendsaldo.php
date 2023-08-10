@@ -61,21 +61,30 @@
 		$quserto = mysqli_query($koneksi, "select * from dompet_user x inner join tb_user y on y.id_user = x.id_user where user = '".$userto."'");
 		if (mysqli_num_rows($quserto) > 0) {
 			$to = mysqli_fetch_array($quserto);
-			//insert table riwayat_tariktunai untuk potong saldo
-			$catbalance = mysqli_query($koneksi, "insert into riwayat_tariktunai values('','$id_dompet','$date','$saldo','$isi_dompet','SENDSALDO')");
 
-			//insert table riwayat_topup untuk tambah saldo
-			$insertbalance = mysqli_query($koneksi, "insert into riwayat_topup values('','".$to['id_dompet']."','$date','$saldo','".$to['isi_dompet']."','SENDSALDO')");
+			if ($to['isi_dompet'] >= $saldo) {
+				//insert table riwayat_tariktunai untuk potong saldo
+				$catbalance = mysqli_query($koneksi, "insert into riwayat_tariktunai values('','$id_dompet','$date','$saldo','$isi_dompet','SENDSALDO')");
 
-			$inserttable = mysqli_query($koneksi, "insert into sendsaldo values('','$id_dompet','".$to['id_dompet']."','$date')");
+				//insert table riwayat_topup untuk tambah saldo
+				$insertbalance = mysqli_query($koneksi, "insert into riwayat_topup values('','".$to['id_dompet']."','$date','$saldo','".$to['isi_dompet']."','SENDSALDO')");
 
-			if ($catbalance && $insertbalance && $inserttable) {
+				$inserttable = mysqli_query($koneksi, "insert into sendsaldo values('','$id_dompet','".$to['id_dompet']."','$date')");
+
+				if ($catbalance && $insertbalance && $inserttable) {
+					echo "<script>
+					document.location.href = 'anggota.php?page=sendsaldo';
+					</script>";
+				}else{
+					echo "<script>
+					document.location.href = 'anggota.php?page=sendsaldo';
+					</script>";
+				}
+				
+			}else if ($to['isi_dompet'] <= $saldo) {
 				echo "<script>
-				document.location.href = 'anggota.php?page=sendsaldo';
-				</script>";
-			}else{
-				echo "<script>
-				document.location.href = 'anggota.php?page=sendsaldo';
+				alert('Maaf, Saldo anda ".rupiah($to['isi_dompet']).". Harap melakukan TopUp sebelum kirim saldo ke teman!!!');
+				document.location.href ='anggota.php?page=sendsaldo';
 				</script>";
 			}
 

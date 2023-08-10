@@ -331,7 +331,7 @@ function rupiah($angka){
 <script src="dist/js/pages/dashboard2.js"></script>
 
 <!-- Add jQuery library (required) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script> -->
 
 <!-- Add the evo-calendar.js for.. obviously, functionality! -->
 <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
@@ -404,6 +404,24 @@ function rupiah($angka){
     });
   });
 </script>
-
+<script language="javascript">
+$(function(){ //Sama jika menggunakan $(document).ready(function(){
+ 
+    $("#check-all").click(function(){
+ 
+        if ( (this).checked == true ){
+ 
+            $('.checkbox').prop('checked', true);
+ 
+        } else {
+ 
+            $('.checkbox').prop('checked', false);
+ 
+        }
+ 
+    });
+ 
+});
+</script>
 </body>
 </html>
